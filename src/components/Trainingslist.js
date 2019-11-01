@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import moment from 'moment';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
 import Modalcomponent from './Modalcomponent';
 import '../CustomStyles.css';
 
