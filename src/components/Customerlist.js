@@ -7,11 +7,8 @@ import '../CustomStyles.css';
 
 const Customerlist = (props) => {
     const [customers, setCustomers] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [show, setShow] = useState(false);
     const [msg, setMsg] = useState('');
-
-    const openToast = () => setOpen(true);
-    const toggleToast = () => setOpen(false);
 
     const fetchCustomers = () => {
         fetch('https://customerrest.herokuapp.com/api/customers')
@@ -26,8 +23,8 @@ const Customerlist = (props) => {
           fetch(link, {method: 'DELETE'})
           .then(response => fetchCustomers())
           .then(response => setMsg("Deleted successfully"))
-          .then(response => setOpen(true))
-          .catch(err => console.error(err))
+          .then(response => setShow(true))
+          .catch(err => console.error(err));
         }
         console.log(link);
     }
@@ -133,15 +130,15 @@ const Customerlist = (props) => {
     return (
         <div>
             <h1>Customers list</h1>
-            <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
-            <Toast show={openToast} onClose={toggleToast}> 
-              <Toast.Header>
-                <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-                <strong className="mr-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
-              </Toast.Header>
-              <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+            <Toast className="p-3 mb-2 bg-success text-white"
+              style={{
+                position: 'relative',
+                top: '200px',
+                zIndex: '1000'
+             }} onClose={() => setShow(false)} show={show} delay={5000} autohide>
+              <Toast.Body>{msg}</Toast.Body>
             </Toast>
+            <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
         </div>
     );
 };
