@@ -4,6 +4,8 @@ import Toast from 'react-bootstrap/Toast';
 import Button from 'react-bootstrap/Button';
 import 'react-table/react-table.css';
 import '../CustomStyles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Customerlist = (props) => {
     const [customers, setCustomers] = useState([]);
@@ -120,7 +122,7 @@ const Customerlist = (props) => {
               }}
             >Actions</div>),
           accessor: 'links[0].href',
-          Cell: ({value}) => <Button color="secondary" onClick={() => deleteCustomer(value)}>Delete</Button>,
+          Cell: ({value}) => <FontAwesomeIcon icon={faTrash} onClick={() => deleteCustomer(value)} />,
           filterable: false,
           sortable: false,
           width: 100
