@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import Toast from 'react-bootstrap/Toast';
 import Button from 'react-bootstrap/Button';
+import Dialogcomponent from './Dialogcomponent';
 import 'react-table/react-table.css';
 import '../CustomStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +11,16 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 const Customerlist = (props) => {
     const [customers, setCustomers] = useState([]);
     const [show, setShow] = useState(false);
+    const [showDialog, setShowDialog] = useState(false);
     const [msg, setMsg] = useState('');
+    const [link, setLink] = useState('');
+
+    const handleClose = () => setShowDialog(false);
+    const handleShow = (link) => {
+        setShowDialog(true);
+        setLink(link);
+        console.log(link);
+    }
 
     const fetchCustomers = () => {
         fetch('https://customerrest.herokuapp.com/api/customers')
@@ -20,15 +30,13 @@ const Customerlist = (props) => {
         console.log(customers);
     }
 
-    const deleteCustomer = (link) => {
-        if(window.confirm('Are you sure?')) {        
-          fetch(link, {method: 'DELETE'})
-          .then(response => fetchCustomers())
-          .then(response => setMsg("Deleted successfully"))
-          .then(response => setShow(true))
-          .catch(err => console.error(err));
-        }
-        console.log(link);
+    const deleteCustomer = (link) => {        
+        fetch(link, {method: 'DELETE'})
+        .then(response => fetchCustomers())
+        .then(response => setMsg("Deleted successfully"))
+        .then(response => setShow(true))
+        .then(respose => setShowDialog(false))
+        .catch(err => console.error(err));
     }
 
     const filterCaseInsensitive = (filter, row) => {
@@ -122,7 +130,7 @@ const Customerlist = (props) => {
               }}
             >Actions</div>),
           accessor: 'links[0].href',
-          Cell: ({value}) => <FontAwesomeIcon icon={faTrash} onClick={() => deleteCustomer(value)} />,
+          Cell: v => <FontAwesomeIcon style={{cursor: 'pointer'}} icon={faTrash} onClick={() => handleShow(v.value)} />,
           filterable: false,
           sortable: false,
           width: 100
@@ -141,6 +149,7 @@ const Customerlist = (props) => {
               <Toast.Body>{msg}</Toast.Body>
             </Toast>
             <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
+            <Dialogcomponent show={showDialog} action={() => deleteCustomer(link)} handleClose={handleClose} title='Are you sure?' msg='The customer will be deleted from the database.'></Dialogcomponent>
         </div>
     );
 };

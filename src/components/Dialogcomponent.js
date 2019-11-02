@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const Modalcomponent = (props) => {
+const Dialogcomponent = (props) => {
 
     return (
 
@@ -16,7 +16,10 @@ const Modalcomponent = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={props.handleClose}>
-                        Close
+                        No
+                    </Button>
+                    <Button variant="primary" onClick={props.action}>
+                        Yes
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -24,4 +27,4 @@ const Modalcomponent = (props) => {
     );
 };
 
-export default Modalcomponent;
+export default Dialogcomponent;
