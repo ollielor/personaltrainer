@@ -3,6 +3,7 @@ import ReactTable from 'react-table';
 import Toast from 'react-bootstrap/Toast';
 import Button from 'react-bootstrap/Button';
 import Dialogcomponent from './Dialogcomponent';
+import Addcustomer from './Addcustomer';
 import 'react-table/react-table.css';
 import '../CustomStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +16,9 @@ const Customerlist = (props) => {
     const [msg, setMsg] = useState('');
     const [link, setLink] = useState('');
 
-    const handleClose = () => setShowDialog(false);
+    const handleClose = () => {
+        setShowDialog(false);
+    }
     const handleShow = (link) => {
         setShowDialog(true);
         setLink(link);
@@ -27,7 +30,6 @@ const Customerlist = (props) => {
         .then(response => response.json())
         .then(data => setCustomers(data.content))
         .catch(err => console.error(err));
-        console.log(customers);
     }
 
     const deleteCustomer = (link) => {        
@@ -52,7 +54,25 @@ const Customerlist = (props) => {
               String(row[filter.id]) === filter.value
           )
       }
-    } 
+    }
+
+    const saveCustomer = (newCustomer) => {
+      console.log(newCustomer);
+      fetch('https://customerrest.herokuapp.com/api/customers',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(newCustomer)
+        }
+      )
+      .then(res => fetchCustomers())
+      .then(res => setMsg("Customer data saved successfully"))
+      .then(res => setShow(true))
+      .catch(err => console.error(err))
+      handleClose();
+      };
 
     useEffect(() => {
         fetchCustomers();
@@ -148,6 +168,7 @@ const Customerlist = (props) => {
              }} onClose={() => setShow(false)} show={show} delay={5000} autohide>
               <Toast.Body>{msg}</Toast.Body>
             </Toast>
+            <Addcustomer saveCustomer={saveCustomer} />
             <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
             <Dialogcomponent show={showDialog} action={() => deleteCustomer(link)} handleClose={handleClose} title='Are you sure?' msg='The customer will be deleted from the database.'></Dialogcomponent>
         </div>
