@@ -11,18 +11,27 @@ export default function Addcustomer(props) {
         firstname: '', lastname: '', streetaddress: '', postcode: '', city: '', email: '', phone: ''
     });
     
-    const handleClose = () => setShowDialog(false);
-    const handleShow = (link) => {
+    const handleClose = () => {
+        props.handleClose();    
+        setShowDialog(false);
+    }
+
+    const handleShow = () => {
         setShowDialog(true);
     };
 
     const handleClickOpen = () => {
         setShowDialog(true);
-      };
+    };
 
     const handleChange = (event) => {
         setNewCustomer({...newCustomer, [event.target.name]: event.target.value});
     };
+
+    const addCustomer = (newCustomer) => {
+        props.saveCustomer(newCustomer);
+        handleClose();
+    }
 
     return(
         <div>
@@ -78,7 +87,7 @@ export default function Addcustomer(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={() => props.saveCustomer(newCustomer)}>
+                    <Button variant="primary" onClick={() => addCustomer(newCustomer)}>
                         Submit
                     </Button>
                 </Form>

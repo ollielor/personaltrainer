@@ -70,8 +70,8 @@ const Customerlist = (props) => {
       .then(res => fetchCustomers())
       .then(res => setMsg("Customer data saved successfully"))
       .then(res => setShow(true))
+      .then(res => setShowDialog(false))
       .catch(err => console.error(err))
-      handleClose();
       };
 
     useEffect(() => {
@@ -168,7 +168,7 @@ const Customerlist = (props) => {
              }} onClose={() => setShow(false)} show={show} delay={5000} autohide>
               <Toast.Body>{msg}</Toast.Body>
             </Toast>
-            <Addcustomer saveCustomer={saveCustomer} />
+            <Addcustomer saveCustomer={saveCustomer} handleClose={handleClose} />
             <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
             <Dialogcomponent show={showDialog} action={() => deleteCustomer(link)} handleClose={handleClose} title='Are you sure?' msg='The customer will be deleted from the database.'></Dialogcomponent>
         </div>
