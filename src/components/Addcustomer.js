@@ -72,7 +72,7 @@ export default function Addcustomer(props) {
                         <Col>
                             <Form.Group controlId="formAddCustomerCity">
                                 <Form.Label>City</Form.Label>
-                                <Form.Control type="text" placeholder="Enter customer's city" name="city" onChange={handleChange}onChange={(event) => handleChange(event)} />
+                                <Form.Control type="text" placeholder="Enter customer's city" name="city" onChange={(event) => handleChange(event)} />
                             </Form.Group>
                         </Col>
                     </Form.Row>
@@ -88,7 +88,7 @@ export default function Addcustomer(props) {
                         Cancel
                     </Button>
                     <Button variant="primary" onClick={() => addCustomer(newCustomer)}>
-                        Submit
+                        Save
                     </Button>
                 </Form>
                 </Modal.Body>

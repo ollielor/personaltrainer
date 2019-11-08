@@ -2,27 +2,40 @@ import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import Toast from 'react-bootstrap/Toast';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Dialogcomponent from './Dialogcomponent';
 import Addcustomer from './Addcustomer';
 import 'react-table/react-table.css';
 import '../CustomStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import Editcustomer from './Editcustomer';
+import Toastcomponent from './Toastcomponent'
 
 const Customerlist = (props) => {
     const [customers, setCustomers] = useState([]);
-    const [show, setShow] = useState(false);
+    const [showToast, setShowToast] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [msg, setMsg] = useState('');
     const [link, setLink] = useState('');
+    const [deleteLink, setDeleteLink] = useState('');
 
     const handleClose = () => {
         setShowDialog(false);
     }
-    const handleShow = (link) => {
+
+    const handleShow = (deleteLink) => {
         setShowDialog(true);
-        setLink(link);
-        console.log(link);
+        setDeleteLink(deleteLink);
+    }
+
+    const onClose = () => {
+        setShowModal(true);
+        console.log(showModal);
+        setShowToast(false);
     }
 
     const fetchCustomers = () => {
@@ -32,13 +45,13 @@ const Customerlist = (props) => {
         .catch(err => console.error(err));
     }
 
-    const deleteCustomer = (link) => {        
-        fetch(link, {method: 'DELETE'})
+    const deleteCustomer = (deleteLink) => {        
+        fetch(deleteLink, {method: 'DELETE'})
         .then(response => fetchCustomers())
         .then(response => setMsg("Deleted successfully"))
-        .then(response => setShow(true))
-        .then(respose => setShowDialog(false))
-        .catch(err => console.error(err));
+        .then(response => setShowToast(true))
+        .then(response => setShowDialog(false))
+        .catch(err => setMsg(err));
     }
 
     const filterCaseInsensitive = (filter, row) => {
@@ -57,7 +70,6 @@ const Customerlist = (props) => {
     }
 
     const saveCustomer = (newCustomer) => {
-      console.log(newCustomer);
       fetch('https://customerrest.herokuapp.com/api/customers',
         {
           method: 'POST',
@@ -69,10 +81,26 @@ const Customerlist = (props) => {
       )
       .then(res => fetchCustomers())
       .then(res => setMsg("Customer data saved successfully"))
-      .then(res => setShow(true))
+      .then(res => setShowToast(true))
       .then(res => setShowDialog(false))
       .catch(err => console.error(err))
       };
+
+      const updateCustomer = (editedCustomer, link) => {
+        fetch(link,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(editedCustomer)
+        }
+        )
+        .then(res => fetchCustomers())
+        .then(res => setMsg("Customer data updated successfully"))
+        .then(res => setShowToast(true))
+        .catch(err => console.error(err))
+      }
 
     useEffect(() => {
         fetchCustomers();
@@ -150,27 +178,26 @@ const Customerlist = (props) => {
               }}
             >Actions</div>),
           accessor: 'links[0].href',
-          Cell: v => <FontAwesomeIcon style={{cursor: 'pointer'}} icon={faTrash} onClick={() => handleShow(v.value)} />,
+          Cell: row => <div>
+              <Container>
+                <Row>
+                  <Col><Editcustomer style={{cursor: 'pointer'}} updateCustomer={updateCustomer} handleClose={handleClose} customer={row.original} /></Col>
+                  <Col><FontAwesomeIcon style={{cursor: 'pointer'}} icon={faTrash} onClick={() => handleShow(row.original.links[0].href)} /></Col>
+                </Row>
+              </Container>
+            </div>,
           filterable: false,
           sortable: false,
-          width: 100
+          width: 120
         },
     ] 
 
     return (
         <div>
             <h1>Customers list</h1>
-            <Toast className="p-3 mb-2 bg-success text-white"
-              style={{
-                position: 'relative',
-                top: '200px',
-                zIndex: '1000'
-             }} onClose={() => setShow(false)} show={show} delay={5000} autohide>
-              <Toast.Body>{msg}</Toast.Body>
-            </Toast>
-            <Addcustomer saveCustomer={saveCustomer} handleClose={handleClose} />
+            <Toastcomponent showToast={showToast} showModal={showModal} msg={msg} handleClose={handleClose} onClose={onClose} delay={3000} />
             <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
-            <Dialogcomponent show={showDialog} action={() => deleteCustomer(link)} handleClose={handleClose} title='Are you sure?' msg='The customer will be deleted from the database.'></Dialogcomponent>
+            <Dialogcomponent show={showDialog} action={() => deleteCustomer(deleteLink)} handleClose={handleClose} title='Are you sure?' msg='The customer will be deleted from the database.'></Dialogcomponent>
         </div>
     );
 };
