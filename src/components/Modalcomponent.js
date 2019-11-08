@@ -12,12 +12,11 @@ const Modalcomponent = (props) => {
                     <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {props.msg}
+                    {props.modalBody}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={props.handleClose}>
-                        Close
-                    </Button>
+                    {props.closeButton}
+                    {props.actionButton}
                 </Modal.Footer>
             </Modal>
         </div>

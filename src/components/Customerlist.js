@@ -195,7 +195,8 @@ const Customerlist = (props) => {
     return (
         <div>
             <h1>Customers list</h1>
-            <Toastcomponent showToast={showToast} showModal={showModal} msg={msg} handleClose={handleClose} onClose={onClose} delay={3000} />
+            <Addcustomer saveCustomer={saveCustomer} />
+            <Toastcomponent showToast={showToast} handleClose={handleClose} onClose={onClose} delay={3000} msg={msg} />
             <ReactTable columns={columns} filterable={true} data={customers} defaultFilterMethod={filterCaseInsensitive} />
             <Dialogcomponent show={showDialog} action={() => deleteCustomer(deleteLink)} handleClose={handleClose} title='Are you sure?' msg='The customer will be deleted from the database.'></Dialogcomponent>
         </div>

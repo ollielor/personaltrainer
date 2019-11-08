@@ -14,7 +14,6 @@ const Trainingslist = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = (custDet) => {
         setShow(true);
-        console.log(custDet);
         setCustomerDetails(custDet);
     }
 
@@ -38,14 +37,13 @@ const Trainingslist = (props) => {
         .then(response => response.json())
         .then(data => setTrainings(data))
         .catch(err => console.error(err));
-        console.log(trainings);
     }
 
     useEffect(() => {
         fetchTrainings();
     }, []);
 
-    const msg = (
+    const modalBody = (
         <div>
             {customerDetails.firstname} {customerDetails.lastname} <br /> 
             {customerDetails.streetaddress} {customerDetails.postcode} {customerDetails.city} <br />
@@ -123,12 +121,18 @@ const Trainingslist = (props) => {
         }
     ] 
 
+    const closeButton = (
+      <Button variant="secondary" onClick={handleClose}>
+          Close
+      </Button>
+    );
+
     return (
 
         <div>
             <h1>Trainings list</h1>
             <ReactTable columns={columns} filterable={true} data={trainings} defaultFilterMethod={filterCaseInsensitive} />
-            <Modalcomponent show={show} handleClose={handleClose} title='Customer Details' msg={msg}></Modalcomponent>
+            <Modalcomponent show={show} handleClose={handleClose} title='Customer Details' modalBody={modalBody} closeButton={closeButton}></Modalcomponent>
         </div>
     );
 };
