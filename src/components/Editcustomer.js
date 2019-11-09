@@ -93,7 +93,7 @@ export default function Editcustomer(props) {
     return(
         <div>
             <FontAwesomeIcon style={{cursor: 'pointer', display: 'inline-block'}} icon={faEdit} onClick={() => updateDetails(props.customer)} />
-            <Modalcomponent show={showModal} modalBody={modalBody} title='Edit customer details' /> 
+            <Modalcomponent show={showModal} modalBody={modalBody} onHide={handleCloseModal} title='Edit customer details' /> 
         </div>        
     )
 

@@ -4,12 +4,18 @@ import 'react-table/react-table.css';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import Modalcomponent from './Modalcomponent';
+import Toastcomponent from './Toastcomponent';
+import Addtraining from './Addtraining';
 import '../CustomStyles.css';
 
 const Trainingslist = (props) => {
     const [trainings, setTrainings] = useState([]);
     const [customerDetails, setCustomerDetails] = useState([]);
     const [show, setShow] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [showDialog, setShowDialog] = useState(false);
+    const [msg, setMsg] = useState('');
 
     const handleClose = () => setShow(false);
     const handleShow = (custDet) => {
@@ -43,6 +49,29 @@ const Trainingslist = (props) => {
         fetchTrainings();
     }, []);
 
+    const saveTraining = (newTraining) => {
+      fetch('https://customerrest.herokuapp.com/api/trainings',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(newTraining)
+        }
+      )
+      .then(res => fetchTrainings())
+      .then(res => setMsg("Training data saved successfully"))
+      .then(res => setShowToast(true))
+      .then(res => setShowDialog(false))
+      .catch(err => console.error(err))
+      };
+
+    const onClose = () => {
+        setShowModal(true);
+        console.log(showModal);
+        setShowToast(false);
+    }
+
     const modalBody = (
         <div>
             {customerDetails.firstname} {customerDetails.lastname} <br /> 
@@ -74,7 +103,7 @@ const Trainingslist = (props) => {
             width: 150,
             filterable: false,
             accessor: row => moment(row.date).format('x'),
-            Cell: row => moment(row.original.date).format('DD.MM.YY HH:MM')
+            Cell: row => moment(row.original.date).format('DD.MM.YYYY')
         },
         {
             Header: () => (
@@ -131,6 +160,8 @@ const Trainingslist = (props) => {
 
         <div>
             <h1>Trainings list</h1>
+            <Addtraining saveTraining={saveTraining} />
+            <Toastcomponent showToast={showToast} handleClose={handleClose} onClose={onClose} delay={3000} msg={msg} />
             <ReactTable columns={columns} filterable={true} data={trainings} defaultFilterMethod={filterCaseInsensitive} />
             <Modalcomponent show={show} handleClose={handleClose} title='Customer Details' modalBody={modalBody} closeButton={closeButton}></Modalcomponent>
         </div>
