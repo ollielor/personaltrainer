@@ -34,7 +34,6 @@ const Customerlist = (props) => {
 
     const onClose = () => {
         setShowModal(true);
-        console.log(showModal);
         setShowToast(false);
     }
 

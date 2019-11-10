@@ -1,3 +1,15 @@
 h1 {
     padding: 15px;
 }
+
+.form-control-lg {
+    border: 2px solid #FF6565;
+  }
+
+.error-message {
+    color: #FF6565;
+    padding: 0 .5em .5em .2em;
+    height: 1em;
+    position: relative;
+    font-size: .8em;
+  }
