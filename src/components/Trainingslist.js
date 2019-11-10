@@ -3,7 +3,10 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Modalcomponent from './Modalcomponent';
+import Dialogcomponent from './Dialogcomponent';
 import Toastcomponent from './Toastcomponent';
 import Addtraining from './Addtraining';
 import '../CustomStyles.css';
@@ -16,11 +19,29 @@ const Trainingslist = (props) => {
     const [showToast, setShowToast] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const [msg, setMsg] = useState('');
+    const [deleteLink, setDeleteLink] = useState('');
 
     const handleClose = () => setShow(false);
+
+    const handleCloseDialog = () => setShowDialog(false);
+
     const handleShow = (custDet) => {
         setShow(true);
         setCustomerDetails(custDet);
+    }
+
+    const handleShowDialog = (trainingId) => {
+        setShowDialog(true);
+        setDeleteLink("http://customerrest.herokuapp.com/api/trainings/" + trainingId);
+    }
+
+    const deleteTraining = (deleteLink) => {        
+      fetch(deleteLink, {method: 'DELETE'})
+      .then(response => fetchTrainings())
+      .then(response => setMsg("Training deleted successfully"))
+      .then(response => setShowToast(true))
+      .then(response => setShowDialog(false))
+      .catch(err => setMsg(err));
     }
 
     const filterCaseInsensitive = (filter, row) => {
@@ -68,7 +89,6 @@ const Trainingslist = (props) => {
 
     const onClose = () => {
         setShowModal(true);
-        console.log(showModal);
         setShowToast(false);
     }
 
@@ -143,10 +163,25 @@ const Trainingslist = (props) => {
                   }}
                 >Customer details</div>),
             accessor: 'customer',
+            width: 200,
             filterable: false,
             Cell: row => 
                     <div><Button onClick={() => handleShow(row.original.customer)}>See customer details</Button>
                     </div>
+        },
+        {
+          Header: () => (
+              <div
+                style={{
+                  textAlign:"left"
+                }}
+              >Actions</div>),
+          accessor: 'customer',
+          filterable: false,
+          Cell: row => 
+                  <div>
+                    <FontAwesomeIcon style={{cursor: 'pointer'}} icon={faTrash} onClick={() => handleShowDialog(row.original.id)} />
+                  </div>
         }
     ] 
 
@@ -164,6 +199,7 @@ const Trainingslist = (props) => {
             <Toastcomponent showToast={showToast} handleClose={handleClose} onClose={onClose} delay={3000} msg={msg} />
             <ReactTable columns={columns} filterable={true} data={trainings} defaultFilterMethod={filterCaseInsensitive} />
             <Modalcomponent show={show} handleClose={handleClose} title='Customer Details' modalBody={modalBody} closeButton={closeButton}></Modalcomponent>
+            <Dialogcomponent show={showDialog} action={() => deleteTraining(deleteLink)} handleClose={handleCloseDialog} title='Are you sure?' msg='The training will be deleted from the database.'></Dialogcomponent>
         </div>
     );
 };

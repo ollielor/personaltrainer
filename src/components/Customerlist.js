@@ -48,7 +48,7 @@ const Customerlist = (props) => {
     const deleteCustomer = (deleteLink) => {        
         fetch(deleteLink, {method: 'DELETE'})
         .then(response => fetchCustomers())
-        .then(response => setMsg("Deleted successfully"))
+        .then(response => setMsg("Customer deleted successfully"))
         .then(response => setShowToast(true))
         .then(response => setShowDialog(false))
         .catch(err => setMsg(err));
