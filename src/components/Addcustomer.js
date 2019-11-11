@@ -38,11 +38,6 @@ export default function Addcustomer(props) {
         props.saveCustomer(values);
         handleClose();
     }    
-    
-    //const addCustomer = (newCustomer) => {
-        //props.saveCustomer(newCustomer);
-        //handleClose();
-    //}
 
     const phoneRegExp = /^\d{3}-\d{7}$/
 
@@ -92,7 +87,7 @@ export default function Addcustomer(props) {
               }, 500);
             }}
           >
-        {( {values,
+            {( {values,
             errors,
             touched,
             handleChange,
