@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Modalcomponent from './Modalcomponent';
-import { Col, Row, Form } from "react-bootstrap";
-import { Formik, ErrorMessage } from 'formik';
+import { Col, Form } from "react-bootstrap";
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import '../CustomStyles.css';
 
 export default function Addtraining(props) {
 
     const [showModal, setShowModal] = useState(false);
-    const [showToast, setShowToast] = useState(false);
-    const [msg, setMsg] = useState('');
     const [customers, setCustomers] = useState([]);
     const [customerUrl, setCustomerUrl] = useState('');
     const [newTraining, setNewTraining] = useState({
@@ -21,10 +18,6 @@ export default function Addtraining(props) {
     const handleClose = () => {    
         setShowModal(false);
     }
-
-    const handleShow = () => {
-        setShowModal(true);
-    };
 
     const handleClickOpen = () => {
         setShowModal(true);
@@ -145,7 +138,7 @@ export default function Addtraining(props) {
                     name="customer" 
                     value={values.customer} 
                     isInvalid={touched.customer && errors.customer ? "true" : null}
-                    defaultValue={customerUrl} 
+                    defaultValue={customerUrl}
                     onChange={(event) => handleChange(event)}
                     >
                     <option disabled value={customerUrl}>-- Select customer --</option>

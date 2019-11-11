@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import Modalcomponent from './Modalcomponent';
-import { Col, Row, Form } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
 import * as Yup from 'yup';
 import '../CustomStyles.css';
 
 export default function Addcustomer(props) {
 
     const [showModal, setShowModal] = useState(false);
-    const [msg, setMsg] = useState('');
     const [newCustomer, setNewCustomer] = useState({
         firstname: '', lastname: '', streetaddress: '', postcode: '', city: '', email: '', phone: ''
     });
@@ -18,10 +16,6 @@ export default function Addcustomer(props) {
     const handleClose = () => {    
         setShowModal(false);
     }
-
-    const handleShow = () => {
-        setShowModal(true);
-    };
 
     const handleClickOpen = () => {
         setShowModal(true);

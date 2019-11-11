@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
-import Toast from 'react-bootstrap/Toast';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,7 +8,7 @@ import Addcustomer from './Addcustomer';
 import 'react-table/react-table.css';
 import '../CustomStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Editcustomer from './Editcustomer';
 import Toastcomponent from './Toastcomponent'
 
@@ -20,7 +18,6 @@ const Customerlist = (props) => {
     const [showDialog, setShowDialog] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [msg, setMsg] = useState('');
-    const [link, setLink] = useState('');
     const [deleteLink, setDeleteLink] = useState('');
 
     const handleClose = () => {

@@ -4,7 +4,7 @@ import 'react-table/react-table.css';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Modalcomponent from './Modalcomponent';
 import Dialogcomponent from './Dialogcomponent';
 import Toastcomponent from './Toastcomponent';

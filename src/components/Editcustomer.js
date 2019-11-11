@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Modalcomponent from './Modalcomponent';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Col, Row, Form } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 export default function Editcustomer(props) {
 
     const [showModal, setShowModal] = useState(false);
-    const [msg, setMsg] = useState('');
-    const [customer, setCustomer] = useState({
-        firstname: '', lastname: '', streetaddress: '', postcode: '', city: '', email: '', phone: ''
-    });
-    const [editedCustomer, setEditedCustomer] = useState({
-        firstname: '', lastname: '', streetaddress: '', postcode: '', city: '', email: '', phone: ''
-    });
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -25,10 +17,6 @@ export default function Editcustomer(props) {
 
     const handleShowModal = () => {
         setShowModal(true);
-    };
-
-    const handleChange = (event) => {
-        setEditedCustomer({...editedCustomer, [event.target.name]: event.target.value})
     };
 
     const handleSubmit = (editedCustomer) => {
