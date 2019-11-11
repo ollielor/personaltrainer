@@ -27,11 +27,6 @@ export default function Editcustomer(props) {
         setShowModal(true);
     };
 
-    //const updateDetails = (customer) => {
-        //setEditedCustomer({...editedCustomer, firstname: customer.firstname, lastname: customer.lastname, streetaddress: customer.streetaddress, postcode: customer.postcode, city: customer.city, email: customer.email, phone: customer.phone});
-        //handleShowModal();
-    //}
-
     const handleChange = (event) => {
         setEditedCustomer({...editedCustomer, [event.target.name]: event.target.value})
     };

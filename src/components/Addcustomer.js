@@ -30,10 +30,7 @@ export default function Addcustomer(props) {
     const handleChange = (event) => {
         setNewCustomer({...newCustomer, [event.target.name]: event.target.value});
     };
-
-    const handleBlur = () => {
-    }
-
+    
     const handleSubmit = (values) => {
         props.saveCustomer(values);
         handleClose();
