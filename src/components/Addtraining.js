@@ -143,8 +143,8 @@ export default function Addtraining(props) {
                     >
                     <option disabled value={customerUrl}>-- Select customer --</option>
                     {
-                    customers.map((customer, index) => {  
-                        return (<option key={index} value={customer.links[0].href}>{customer.firstname} {customer.lastname}</option>)
+                    customers.sort((a,b) => a.lastname > b.lastname).map((customer, index) => {  
+                        return (<option key={index} value={customer.links[0].href}>{customer.lastname} {customer.firstname}</option>)
                     })
                     }
                 </Form.Control>
