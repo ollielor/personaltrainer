@@ -8,6 +8,7 @@ import Navigator from './components/Navigator';
 import Homepage from './components/Homepage';
 import Customerlist from './components/Customerlist';
 import Trainingslist from './components/Trainingslist';
+import Calendarcomponent from './components/Calendarcomponent';
 
 const routing = (
     <BrowserRouter> 
@@ -17,6 +18,7 @@ const routing = (
                 <Route exact path="/" component={Homepage} />
                 <Route path="/customers" component={Customerlist} />
                 <Route path="/trainings" component={Trainingslist} />
+                <Route path="/calendar" component={Calendarcomponent} />
                 <Route render={() => <h1>Page not found</h1>}/>
             </Switch>
         </div>

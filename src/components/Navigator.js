@@ -16,6 +16,7 @@ const Navigator = () => {
             <Nav className="mr-auto">
                 <Nav.Link as={Link} to="/customers">Customers</Nav.Link>
                 <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
+                <Nav.Link as={Link} to="/calendar">Training calendar</Nav.Link>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
