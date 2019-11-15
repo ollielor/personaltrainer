@@ -18,9 +18,6 @@ const Calendarcomponent = (props) => {
           return {title: tr.activity, start: moment(tr.date).toDate(), end: moment(tr.date).add(4, "hours").toDate(), allDay: false}
     });
 
-    console.log(training);
-  
-
     useEffect(() => {
         fetchTrainings();
     }, []);
@@ -43,8 +40,6 @@ const Calendarcomponent = (props) => {
     return(
         <div>
             <TrainingCalendar />
-            {console.log(trainings)}
-            {console.log(training)}
         </div>        
     )
 };
