@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BackgroundImage from '../images/backgroundimage.jpg';
+import '../App.css';
 
 const Homepage = () => {
 

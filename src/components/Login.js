@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class Login extends Component {
     state = { email: "", password: "" };
@@ -31,6 +32,8 @@ render() {
     return <Redirect to="/" />;
   } else {
    return (
+        <div>
+           <h1 style={{marginBottom: '40px'}}>Login to PT Services website</h1>
            <Form onSubmit={this.handleSubmit}>
                <Form.Group controlId="formLoginEmail">
                     <Form.Control 
@@ -55,6 +58,7 @@ render() {
                     Sign in
                 </Button>
            </Form>
+        </div>
        );
       }
     }

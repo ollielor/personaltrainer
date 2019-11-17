@@ -4,8 +4,12 @@ import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./components/Home";
+
 import Login from "./components/Login";
+import Homepage from './components/Homepage';
+import Customerlist from './components/Customerlist';
+import Trainingslist from './components/Trainingslist';
+import Calendarcomponent from './components/Calendarcomponent';
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -14,11 +18,27 @@ function App(props) {
       <ProtectedRoute
         exact
         path="/"
-        component={Home}
+        component={Homepage}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
       <Route path="/login" component={Login} />
+      <ProtectedRoute
+        exact
+        path="/customers"
+        component={Customerlist}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/trainings"
+        component={Trainingslist}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <Route path="/calendar" component={Calendarcomponent} />
+      <Route render={() => <h1>Page not found</h1>}/>
     </Switch>
   );
 }

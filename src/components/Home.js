@@ -6,7 +6,8 @@ import { logoutUser } from "../actions";class Home extends Component {
     dispatch(logoutUser());
   };
   render() {
-    const { isLoggingOut, logoutError } = this.props;    return (
+    const { isLoggingOut, logoutError } = this.props;    
+    return (
       <div>
         <h1>This is your app's protected area.</h1>
         <p>Any routes here will also be protected</p>
