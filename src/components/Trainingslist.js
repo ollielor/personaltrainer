@@ -32,7 +32,7 @@ const Trainingslist = (props) => {
 
     const handleShowDialog = (trainingId) => {
         setShowDialog(true);
-        setDeleteLink("http://customerrest.herokuapp.com/api/trainings/" + trainingId);
+        setDeleteLink("https://customerrest.herokuapp.com/api/trainings/" + trainingId);
     }
 
     const deleteTraining = (deleteLink) => {        
