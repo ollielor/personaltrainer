@@ -11,7 +11,8 @@ const Homepage = () => {
             <div className='App-content'>
                 <h1 style={{padding: '0'}}>Homepage</h1>
                 <Link to='/customers'>Customer details</Link><br />
-                <Link to='/trainings'>Trainings</Link>
+                <Link to='/trainings'>Trainings</Link><br />
+                <Link to='/calendar'>Training calendar</Link>
             </div>
         </div>
 

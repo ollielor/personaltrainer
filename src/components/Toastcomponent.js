@@ -9,7 +9,7 @@ const Toastcomponent = (props) => {
             <Toast className="p-3 mb-2 bg-success text-white"
               style={{
                 position: 'relative',
-                top: '200px',
+                top: '200',
                 zIndex: '1000'
              }} onClose={props.onClose} show={props.showToast} delay={props.delay} autohide>
               <Toast.Body>{props.msg}</Toast.Body>

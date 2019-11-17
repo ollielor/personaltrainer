@@ -17,14 +17,6 @@ function App(props) {
     <Switch>
       <ProtectedRoute
         exact
-        path="/"
-        component={Homepage}
-        isAuthenticated={isAuthenticated}
-        isVerifying={isVerifying}
-      />
-      <Route path="/login" component={Login} />
-      <ProtectedRoute
-        exact
         path="/customers"
         component={Customerlist}
         isAuthenticated={isAuthenticated}
@@ -38,6 +30,8 @@ function App(props) {
         isVerifying={isVerifying}
       />
       <Route path="/calendar" component={Calendarcomponent} />
+      <Route path="/login" component={Login} />
+      <Route path="/" component={Homepage} />
       <Route render={() => <h1>Page not found</h1>}/>
     </Switch>
   );

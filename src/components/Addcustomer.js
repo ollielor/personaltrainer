@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Formik } from 'formik';
 import Modalcomponent from './Modalcomponent';
 import { Col, Form } from "react-bootstrap";
@@ -209,10 +210,12 @@ export default function Addcustomer(props) {
 
     return(
         <div>
-            <Button onClick={handleClickOpen}>
-                Add new customer
-            </Button>   
+            <ButtonGroup className='ml-3'>
+                <Button onClick={handleClickOpen}>
+                    Add new customer
+                </Button>   
             <Modalcomponent show={showModal} handleClose={handleClose} title='Add new customer' modalBody={modalBody}></Modalcomponent>
+            </ButtonGroup>
         </div>        
     )
 

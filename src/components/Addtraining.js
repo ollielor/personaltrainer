@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modalcomponent from './Modalcomponent';
 import { Col, Form } from "react-bootstrap";
 import { Formik } from 'formik';
@@ -10,12 +11,12 @@ export default function Addtraining(props) {
 
     const [showModal, setShowModal] = useState(false);
     const [customers, setCustomers] = useState([]);
-    const [customerUrl, setCustomerUrl] = useState('');
+    const customerUrl = useState('');
     const [newTraining, setNewTraining] = useState({
         date: 'yyyy-m-d', duration: 0, activity: '', customer: ''
     });
     
-    const handleClose = () => {    
+    const handleClose = () => {
         setShowModal(false);
     }
 
@@ -165,9 +166,11 @@ export default function Addtraining(props) {
 
     return(
         <div>
-            <Button onClick={handleClickOpen}>
-                Add new training
-            </Button>   
+            <ButtonGroup className='ml-3'>
+                <Button onClick={handleClickOpen}>
+                    Add new training
+                </Button>
+            </ButtonGroup>   
             <Modalcomponent show={showModal} handleClose={handleClose} title='Add new training' modalBody={modalBody} onHide={handleClose}></Modalcomponent>
 
         </div>        
