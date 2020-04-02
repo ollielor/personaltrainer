@@ -70,6 +70,19 @@ const requestLogin = () => {
         dispatch(loginError());
       });
   };
+
+  export const loginUserWithFacebook = (email, password) => dispatch => {
+    dispatch(requestLogin());
+    myFirebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        dispatch(receiveLogin(user));
+      })
+      .catch(error => {
+        dispatch(loginError());
+      });
+  };
   
   export const logoutUser = () => dispatch => {
     dispatch(requestLogout());

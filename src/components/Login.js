@@ -25,6 +25,13 @@ class Login extends Component {
       dispatch(loginUser(email, password));
     };
 
+    handleSubmitFacebook = () => {
+      //const { dispatch } = this.props;
+      //const { email, password } = this.state;
+      console.log('Facebook Login Success');
+      //dispatch(loginUser(email, password));
+    };
+
 
 render() {
   const { loginError, isAuthenticated } = this.props;
@@ -57,6 +64,13 @@ render() {
                 <Button variant="primary" type="submit">
                     Sign in
                 </Button>
+                <Button 
+                    style={{display: 'block', marginTop: '15px'}}
+                    onClick={this.handleSubmitFacebook}
+                >
+                    Facebook Login
+                </Button>
+
            </Form>
         </div>
        );
